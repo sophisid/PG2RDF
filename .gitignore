@@ -1,0 +1,74 @@
+# Metals (Scala language server) specific
+.metals/
+.bloop/
+.bsp/
+
+# sbt specific
+target/
+project/target/
+project/project/
+project/src_managed/
+project/project/project/
+lib_managed/
+src_managed/
+.history
+
+# Worksheets (e.g., Ammonite)
+*.worksheet.sc
+
+# IntelliJ IDEA specific
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sw?
+
+# Eclipse specific
+.bin/
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/
+.scala_dependencies
+.worksheet
+
+# Ignore everything inside datasets/
+datasets/FIB25/**
+!datasets/FIB25/*.zip
+datasets/FIB/**
+!datasets/FIB/*.zip
+datasets/MB6/**
+!datasets/MB6/*.zip
+datasets/LDBC/**
+!datasets/LDBC/*.zip
+datasets/LDBC/ldbc_inputs1
+datasets/LDBC/ldbc_inputs2
+datasets/LDBC/ldbc_inputs3
+datasets/LDBC/ldbc_inputs4
+
+noisy_datasets/*
+output/*
+
+.metals/metals.mv.db
+/.metals
+pg2rdf/hashed_data.parquet/._SUCCESS.crc
+/pg2rdf/hashed_data.parquet
+/pg2rdf/merged_patterns.parquet
+pg2rdf/patterns_and_rows.ser
+pg2rdf/.env
+
+../.DS_Store
+../.metals/metals.mv.db
+load.txt
+.DS_Store
+
+#run scripts
+run_fib.sh
+run_mb6.sh
+run_ldbc.sh
+
+# output files
+pg2rdf/output_trig
+pg2rdf/output_xml
+README_2.md
