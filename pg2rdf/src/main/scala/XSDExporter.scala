@@ -113,6 +113,8 @@ object XSDExporter {
           </xs:choice>
           {propElements}
         </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="label" type="xs:string"/>
       </xs:complexType>
 
     }
