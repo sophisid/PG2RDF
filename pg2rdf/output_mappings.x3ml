@@ -334,13 +334,13 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//HAS_EMAIL/source/Person</source_node>
+        <source_node>//HAS_EMAIL/source/UnknownSource</source_node>
         <target_node>
           <entity>
-            <type>custom:Person</type>
+            <type>custom:UnknownSource</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">Person</arg>
+              <arg name="type" type="constant">UnknownSource</arg>
             </instance_generator>
           </entity>
         </target_node>
@@ -348,20 +348,20 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../target/Email</relation>
+            <relation>../../target/UnknownTarget</relation>
           </source_relation>
           <target_relation>
             <relationship>custom:HAS_EMAIL</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../target/Email</source_node>
+          <source_node>../../target/UnknownTarget</source_node>
           <target_node>
             <entity>
-              <type>custom:Email</type>
+              <type>custom:UnknownTarget</type>
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">Email</arg>
+                <arg name="type" type="constant">UnknownTarget</arg>
               </instance_generator>
             </entity>
           </target_node>
@@ -391,13 +391,13 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//IS_LOCATED_IN/source/Person</source_node>
+        <source_node>//IS_LOCATED_IN/source/UnknownSource</source_node>
         <target_node>
           <entity>
-            <type>custom:Person</type>
+            <type>custom:UnknownSource</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">Person</arg>
+              <arg name="type" type="constant">UnknownSource</arg>
             </instance_generator>
           </entity>
         </target_node>
@@ -405,20 +405,20 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../target/Place</relation>
+            <relation>../../target/UnknownTarget</relation>
           </source_relation>
           <target_relation>
             <relationship>custom:IS_LOCATED_IN</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../target/Place</source_node>
+          <source_node>../../target/UnknownTarget</source_node>
           <target_node>
             <entity>
-              <type>custom:Place</type>
+              <type>custom:UnknownTarget</type>
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">Place</arg>
+                <arg name="type" type="constant">UnknownTarget</arg>
               </instance_generator>
             </entity>
           </target_node>
@@ -427,13 +427,13 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//IS_PART_OF/source/Place</source_node>
+        <source_node>//IS_PART_OF/source/UnknownSource</source_node>
         <target_node>
           <entity>
-            <type>custom:Place</type>
+            <type>custom:UnknownSource</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">Place</arg>
+              <arg name="type" type="constant">UnknownSource</arg>
             </instance_generator>
           </entity>
         </target_node>
@@ -441,20 +441,20 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../target/Place</relation>
+            <relation>../../target/UnknownTarget</relation>
           </source_relation>
           <target_relation>
             <relationship>custom:IS_PART_OF</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../target/Place</source_node>
+          <source_node>../../target/UnknownTarget</source_node>
           <target_node>
             <entity>
-              <type>custom:Place</type>
+              <type>custom:UnknownTarget</type>
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">Place</arg>
+                <arg name="type" type="constant">UnknownTarget</arg>
               </instance_generator>
             </entity>
           </target_node>

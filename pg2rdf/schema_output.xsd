@@ -10,7 +10,7 @@
       <xs:element name="lastName" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="firstName" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="gender" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
       <xs:element name="locationIP" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
       <xs:element name="birthday" type="xs:date" minOccurs="1" maxOccurs="1"/>
@@ -27,7 +27,7 @@
     <xs:sequence>
       <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
       <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -52,8 +52,12 @@
           <type>edge</type>
         </xs:appinfo>
       </xs:annotation>
-      <xs:element name="source" type="Person"/>
-      <xs:element name="target" type="Email"/>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="source" type="Person"/>
+      </xs:choice>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="target" type="Email"/>
+      </xs:choice>
       <xs:element name="since" type="xs:integer" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
@@ -64,8 +68,12 @@
           <type>edge</type>
         </xs:appinfo>
       </xs:annotation>
-      <xs:element name="source" type="Person"/>
-      <xs:element name="target" type="Place"/>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="source" type="Person"/>
+      </xs:choice>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="target" type="Place"/>
+      </xs:choice>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="IS_PART_OF">
@@ -75,8 +83,12 @@
           <type>edge</type>
         </xs:appinfo>
       </xs:annotation>
-      <xs:element name="source" type="Place"/>
-      <xs:element name="target" type="Place"/>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="source" type="Place"/>
+      </xs:choice>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="target" type="Place"/>
+      </xs:choice>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

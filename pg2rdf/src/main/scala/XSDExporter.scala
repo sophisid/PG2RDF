@@ -100,16 +100,21 @@ object XSDExporter {
 
       <xs:complexType name={relType}>
         <xs:sequence>
-           <xs:annotation>
+          <xs:annotation>
             <xs:appinfo>
               <type>edge</type>
             </xs:appinfo>
           </xs:annotation>
-          {sourceElements}
-          {targetElements}
+          <xs:choice minOccurs="1" maxOccurs="1">
+            {sourceElements}
+          </xs:choice>
+          <xs:choice minOccurs="1" maxOccurs="1">
+            {targetElements}
+          </xs:choice>
           {propElements}
         </xs:sequence>
       </xs:complexType>
+
     }
 
     val schema =
@@ -129,7 +134,7 @@ object XSDExporter {
     scalaType.trim.toLowerCase match {
       case "string" => "xs:string"
       case "int" | "integer" | "int32" => "xs:integer"
-      case "double" => "xs:double"
+      case "double" => "xs:decimal"
       case "boolean" => "xs:boolean"
       case "date" => "xs:date"
       case _ => "xs:string"
