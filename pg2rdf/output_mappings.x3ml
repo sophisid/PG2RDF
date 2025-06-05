@@ -334,133 +334,114 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//HAS_EMAIL/source/UnknownSource</source_node>
+        <source_node>//KNOWS/source/Person</source_node>
         <target_node>
           <entity>
-            <type>custom:UnknownSource</type>
+            <type>custom:Person</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">UnknownSource</arg>
+              <arg name="type" type="constant">Person</arg>
             </instance_generator>
+            <additional>
+              <relationship>custom:KNOWS</relationship>
+              <entity>
+                <type>custom:intermediate</type>
+                <instance_generator name="URIwithType">
+                  <arg name="id" type="xpath">../../id/text()</arg>
+                  <arg name="type" type="constant">KNOWS</arg>
+                </instance_generator>
+                <additional>
+                  <relationship>custom:hasTarget</relationship>
+                  <entity>
+                    <type>custom:Email</type>
+                    <instance_generator name="URIwithType">
+                      <arg name="id" type="xpath">../../target/Email/text()</arg>
+                      <arg name="type" type="constant">Email</arg>
+                    </instance_generator>
+                  </entity>
+                </additional>
+                <additional>
+                  <relationship>custom:KNOWS_since</relationship>
+                  <entity>
+                    <type>rdfs:Literal</type>
+                    <instance_generator name="Literal">
+                      <arg name="text" type="xpath">../../since/text()</arg>
+                    </instance_generator>
+                  </entity>
+                </additional>
+              </entity>
+            </additional>
           </entity>
         </target_node>
       </domain>
-      <link>
-        <path>
-          <source_relation>
-            <relation>../../target/UnknownTarget</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:HAS_EMAIL</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>../../target/UnknownTarget</source_node>
-          <target_node>
-            <entity>
-              <type>custom:UnknownTarget</type>
-              <instance_generator name="URIwithType">
-                <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">UnknownTarget</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
-      <link>
-        <path>
-          <source_relation>
-            <relation>../../since</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:HAS_EMAIL_since</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>../../since</source_node>
-          <target_node>
-            <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//IS_LOCATED_IN/source/UnknownSource</source_node>
+        <source_node>//IS_LOCATED_IN/source/Person</source_node>
         <target_node>
           <entity>
-            <type>custom:UnknownSource</type>
+            <type>custom:Person</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">UnknownSource</arg>
+              <arg name="type" type="constant">Person</arg>
             </instance_generator>
+            <additional>
+              <relationship>custom:IS_LOCATED_IN</relationship>
+              <entity>
+                <type>custom:intermediate</type>
+                <instance_generator name="URIwithType">
+                  <arg name="id" type="xpath">../../id/text()</arg>
+                  <arg name="type" type="constant">IS_LOCATED_IN</arg>
+                </instance_generator>
+                <additional>
+                  <relationship>custom:hasTarget</relationship>
+                  <entity>
+                    <type>custom:Place</type>
+                    <instance_generator name="URIwithType">
+                      <arg name="id" type="xpath">../../target/Place/text()</arg>
+                      <arg name="type" type="constant">Place</arg>
+                    </instance_generator>
+                  </entity>
+                </additional>
+              </entity>
+            </additional>
           </entity>
         </target_node>
       </domain>
-      <link>
-        <path>
-          <source_relation>
-            <relation>../../target/UnknownTarget</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:IS_LOCATED_IN</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>../../target/UnknownTarget</source_node>
-          <target_node>
-            <entity>
-              <type>custom:UnknownTarget</type>
-              <instance_generator name="URIwithType">
-                <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">UnknownTarget</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//IS_PART_OF/source/UnknownSource</source_node>
+        <source_node>//IS_PART_OF/source/Place</source_node>
         <target_node>
           <entity>
-            <type>custom:UnknownSource</type>
+            <type>custom:Place</type>
             <instance_generator name="URIwithType">
               <arg name="id" type="xpath">text()</arg>
-              <arg name="type" type="constant">UnknownSource</arg>
+              <arg name="type" type="constant">Place</arg>
             </instance_generator>
+            <additional>
+              <relationship>custom:IS_PART_OF</relationship>
+              <entity>
+                <type>custom:intermediate</type>
+                <instance_generator name="URIwithType">
+                  <arg name="id" type="xpath">../../id/text()</arg>
+                  <arg name="type" type="constant">IS_PART_OF</arg>
+                </instance_generator>
+                <additional>
+                  <relationship>custom:hasTarget</relationship>
+                  <entity>
+                    <type>custom:Place</type>
+                    <instance_generator name="URIwithType">
+                      <arg name="id" type="xpath">../../target/Place/text()</arg>
+                      <arg name="type" type="constant">Place</arg>
+                    </instance_generator>
+                  </entity>
+                </additional>
+              </entity>
+            </additional>
           </entity>
         </target_node>
       </domain>
-      <link>
-        <path>
-          <source_relation>
-            <relation>../../target/UnknownTarget</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:IS_PART_OF</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>../../target/UnknownTarget</source_node>
-          <target_node>
-            <entity>
-              <type>custom:UnknownTarget</type>
-              <instance_generator name="URIwithType">
-                <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">UnknownTarget</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
     </mapping>
   </mappings>
 </x3ml>
-

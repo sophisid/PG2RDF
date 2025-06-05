@@ -116,6 +116,7 @@ object XSDToXMLExporter {
         edgeIds.map { eid =>
           val src = eid.getAs[Any]("srcId").toString.toLong
           val dst = eid.getAs[Any]("dstId").toString.toLong
+          val edgeId = eid.mkString("_")
           val propMap = edgeIdToSrcDst.getOrElse((src, dst), Map.empty)
 
           val props = edgeType.fields.map { case (name, _) =>
@@ -127,6 +128,7 @@ object XSDToXMLExporter {
           val dstType = propMap("dstType")
 
           val children = Seq(
+            Elem(null, "id", Null, TopScope, true, Text(edgeId)),
             Elem(null, "source", Null, TopScope, true,
               Elem(null, srcType, Null, TopScope, true, Text(src.toString))
             ),

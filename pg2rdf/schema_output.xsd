@@ -60,6 +60,8 @@
       </xs:choice>
       <xs:element name="since" type="xs:integer" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
   <xs:complexType name="IS_LOCATED_IN">
     <xs:sequence>
@@ -75,6 +77,8 @@
         <xs:element name="target" type="Place"/>
       </xs:choice>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
   <xs:complexType name="IS_PART_OF">
     <xs:sequence>
@@ -90,5 +94,7 @@
         <xs:element name="target" type="Place"/>
       </xs:choice>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
 </xs:schema>
