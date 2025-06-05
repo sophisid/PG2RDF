@@ -1,4 +1,97 @@
 <xs:schema name="NewGraphSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Forum">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="Comment">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="browserUsed" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="content" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="locationIP" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="length" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="TagClass">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="Organisation">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="Post">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="browserUsed" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="locationIP" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="length" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="imageFile" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="content" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="language" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="Tag">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
   <xs:complexType name="Person">
     <xs:annotation>
       <xs:appinfo>
@@ -18,34 +111,19 @@
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="Place">
-    <xs:annotation>
-      <xs:appinfo>
-        <type>node</type>
-      </xs:appinfo>
-    </xs:annotation>
+  <xs:complexType name="REPLY_OF">
     <xs:sequence>
-      <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="id" type="xs:double" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Comment"/>
+      <xs:element name="target" type="Comment"/>
+      <xs:element name="target" type="Post"/>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="Email">
-    <xs:annotation>
-      <xs:appinfo>
-        <type>node</type>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="address" type="xs:string" minOccurs="1" maxOccurs="1"/>
-    </xs:sequence>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="label" type="xs:string"/>
-  </xs:complexType>
-  <xs:complexType name="HAS_EMAIL">
+  <xs:complexType name="STUDIES_AT">
     <xs:sequence>
       <xs:annotation>
         <xs:appinfo>
@@ -53,11 +131,22 @@
         </xs:appinfo>
       </xs:annotation>
       <xs:element name="source" type="Person"/>
-      <xs:element name="target" type="Email"/>
-      <xs:element name="since" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="target" type="Organisation"/>
+      <xs:element name="classYear" type="xs:integer" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="IS_LOCATED_IN">
+  <xs:complexType name="HAS_MODERATOR">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Forum"/>
+      <xs:element name="target" type="Person"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="WORKS_AT">
     <xs:sequence>
       <xs:annotation>
         <xs:appinfo>
@@ -65,7 +154,43 @@
         </xs:appinfo>
       </xs:annotation>
       <xs:element name="source" type="Person"/>
-      <xs:element name="target" type="Place"/>
+      <xs:element name="target" type="Organisation"/>
+      <xs:element name="workFrom" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IS_SUBCLASS_OF">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="TagClass"/>
+      <xs:element name="target" type="TagClass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HAS_CREATOR">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Person"/>
+      <xs:element name="source" type="Post"/>
+      <xs:element name="target" type="Person"/>
+      <xs:element name="target" type="Comment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CONTAINER_OF">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Forum"/>
+      <xs:element name="target" type="Post"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="IS_PART_OF">
@@ -77,6 +202,92 @@
       </xs:annotation>
       <xs:element name="source" type="Place"/>
       <xs:element name="target" type="Place"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LIKES">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Person"/>
+      <xs:element name="target" type="Comment"/>
+      <xs:element name="target" type="Post"/>
+      <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HAS_INTEREST">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Person"/>
+      <xs:element name="target" type="Tag"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IS_LOCATED_IN">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Comment"/>
+      <xs:element name="source" type="Organisation"/>
+      <xs:element name="source" type="Person"/>
+      <xs:element name="source" type="Post"/>
+      <xs:element name="target" type="Place"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HAS_TYPE">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Tag"/>
+      <xs:element name="target" type="TagClass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KNOWS">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Person"/>
+      <xs:element name="target" type="Person"/>
+      <xs:element name="creationDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HAS_TAG">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Forum"/>
+      <xs:element name="source" type="Comment"/>
+      <xs:element name="source" type="Post"/>
+      <xs:element name="target" type="Tag"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HAS_MEMBER">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:appinfo>
+          <type>edge</type>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:element name="source" type="Forum"/>
+      <xs:element name="target" type="Person"/>
+      <xs:element name="joinDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

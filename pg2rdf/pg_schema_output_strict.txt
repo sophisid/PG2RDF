@@ -1,23 +1,60 @@
 -- NODE TYPES --
+CREATE NODE TYPE ForumType : Forum {id DOUBLE, title STRING, creationDate DATE};
+CREATE NODE TYPE CommentType : Comment {browserUsed STRING, content STRING, id DOUBLE, locationIP STRING, length INTEGER, creationDate DATE};
+CREATE NODE TYPE TagClassType : TagClass {name STRING, id DOUBLE, url STRING};
+CREATE NODE TYPE Organisation_PlaceType : Organisation | Place {type STRING, name STRING, id DOUBLE, url STRING};
+CREATE NODE TYPE PostType : Post {browserUsed STRING, id DOUBLE, locationIP STRING, length INTEGER, creationDate DATE, OPTIONAL imageFile STRING, OPTIONAL content STRING, OPTIONAL language STRING};
+CREATE NODE TYPE TagType : Tag {name STRING, id DOUBLE, url STRING};
 CREATE NODE TYPE PersonType : Person {browserUsed STRING, lastName STRING, firstName STRING, gender STRING, id DOUBLE, locationIP STRING, creationDate DATE, birthday DATE};
-CREATE NODE TYPE PlaceType : Place {type STRING, name STRING, id DOUBLE, url STRING};
-CREATE NODE TYPE EmailType : Email {address STRING};
 
 -- EDGE TYPES --
-CREATE EDGE TYPE has_emailType : HAS_EMAIL {since INTEGER};
+CREATE EDGE TYPE container_ofType : CONTAINER_OF;
+CREATE EDGE TYPE has_creatorType : HAS_CREATOR;
+CREATE EDGE TYPE has_interestType : HAS_INTEREST;
+CREATE EDGE TYPE has_memberType : HAS_MEMBER {joinDate DATE};
+CREATE EDGE TYPE has_moderatorType : HAS_MODERATOR;
+CREATE EDGE TYPE has_tagType : HAS_TAG;
+CREATE EDGE TYPE has_typeType : HAS_TYPE;
 CREATE EDGE TYPE is_located_inType : IS_LOCATED_IN;
 CREATE EDGE TYPE is_part_ofType : IS_PART_OF;
+CREATE EDGE TYPE is_subclass_ofType : IS_SUBCLASS_OF;
+CREATE EDGE TYPE knowsType : KNOWS {creationDate DATE};
+CREATE EDGE TYPE likesType : LIKES {creationDate DATE};
+CREATE EDGE TYPE reply_ofType : REPLY_OF;
+CREATE EDGE TYPE studies_atType : STUDIES_AT {classYear INTEGER};
+CREATE EDGE TYPE works_atType : WORKS_AT {workFrom INTEGER};
 
 CREATE GRAPH TYPE NewGraphSchema STRICT {
+  (ForumType),
+  (CommentType),
+  (TagClassType),
+  (Organisation_PlaceType),
+  (PostType),
+  (TagType),
   (PersonType),
-  (PlaceType),
-  (EmailType),
-  (:PersonType)-[has_emailType]->(:EmailType),
-  (:PersonType)-[is_located_inType]->(:PlaceType),
+  (:ForumType)-[container_ofType]->(:PostType),
+  (:PersonType|PostType)-[has_creatorType]->(:PersonType|CommentType),
+  (:PersonType)-[has_interestType]->(:TagType),
+  (:ForumType)-[has_memberType]->(:PersonType),
+  (:ForumType)-[has_moderatorType]->(:PersonType),
+  (:ForumType|CommentType|PostType)-[has_tagType]->(:TagType),
+  (:TagType)-[has_typeType]->(:TagClassType),
+  (:CommentType|OrganisationType|PersonType|PostType)-[is_located_inType]->(:PlaceType),
   (:PlaceType)-[is_part_ofType]->(:PlaceType),
+  (:TagClassType)-[is_subclass_ofType]->(:TagClassType),
+  (:PersonType)-[knowsType]->(:PersonType),
+  (:PersonType)-[likesType]->(:CommentType|PostType),
+  (:CommentType)-[reply_ofType]->(:CommentType|PostType),
+  (:PersonType)-[studies_atType]->(:OrganisationType),
+  (:PersonType)-[works_atType]->(:OrganisationType),
 
   // Constraints
-  FOR (x:EmailType) SINGLETON x WITHIN (:PersonType)-[y: has_emailType]->(x)
-  FOR (x:PersonType) SINGLETON y WITHIN (x)-[y: is_located_inType]->(:PlaceType)
+  FOR (x:PostType) SINGLETON x WITHIN (:ForumType)-[y: container_ofType]->(x)
+  FOR (x:ForumType) SINGLETON y WITHIN (x)-[y: has_moderatorType]->(:PersonType)
+  FOR (x:TagType) SINGLETON y WITHIN (x)-[y: has_typeType]->(:TagClassType)
+  FOR (x:CommentType|OrganisationType|PersonType|PostType) SINGLETON y WITHIN (x)-[y: is_located_inType]->(:PlaceType)
   FOR (x:PlaceType) SINGLETON y WITHIN (x)-[y: is_part_ofType]->(:PlaceType)
+  FOR (x:TagClassType) SINGLETON y WITHIN (x)-[y: is_subclass_ofType]->(:TagClassType)
+  FOR (x:CommentType) SINGLETON y WITHIN (x)-[y: reply_ofType]->(:CommentType|PostType)
+  FOR (x:PersonType) SINGLETON y WITHIN (x)-[y: studies_atType]->(:OrganisationType)
 }

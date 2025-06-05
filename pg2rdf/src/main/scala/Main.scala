@@ -162,13 +162,6 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
 
 
   def main(args: Array[String]): Unit = {
-    val clusteringMethod = if (args.length < 1) "LSH" else args(0).toUpperCase()
-    //check if clustering incremental
-    val incremental = args.length > 1 && args(1).toLowerCase == "incremental"
-    if (!Set("LSH", "KMEANS", "BOTH").contains(clusteringMethod)) {
-      println(s"Invalid clustering method: $clusteringMethod. Use LSH, KMEANS, or BOTH.")
-      System.exit(1)
-    }
 
     val spark = SparkSession.builder()
       .appName("HybridLSHDemo")
@@ -182,7 +175,6 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
       .getOrCreate()
 
     import spark.implicits._
-    val startTime = System.currentTimeMillis() 
     spark.sparkContext.setLogLevel("ERROR")
     
       val nodesDF = DataLoader.loadAllNodes(spark)
@@ -194,92 +186,70 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
       val binaryNodesDF = PatternPreprocessing.encodePatterns(spark, nodesDF, allNodeProperties)
       val binaryEdgesDF = PatternPreprocessing.encodeEdgePatterns(spark, edgesDF, allEdgeProperties)  
 
-      if (clusteringMethod == "LSH" || clusteringMethod == "BOTH") {
-        val clusteredNodes = LSHClustering.applyLSHNodes(spark, binaryNodesDF)
-        val clusteredEdges = LSHClustering.applyLSHEdges(spark, binaryEdgesDF)
+      val clusteredNodes = LSHClustering.applyLSHNodes(spark, binaryNodesDF)
+      val clusteredEdges = LSHClustering.applyLSHEdges(spark, binaryEdgesDF)
 
-        val startClusteringTime = System.currentTimeMillis()
-        val mergedPatterns = LSHClustering.mergePatternsByLabel(spark, clusteredNodes)
-        val endClusteringTime = System.currentTimeMillis()
-        val elapsedClusteringTime = endClusteringTime - startClusteringTime
-        val elapsedClusteringTimeInSeconds = elapsedClusteringTime / 1000.0
-        println(s"Elapsed time for clustering : $elapsedClusteringTimeInSeconds seconds")
-        println(s"Elapsed time for clustering: $elapsedClusteringTime milliseconds")
+      val startClusteringTime = System.currentTimeMillis()
+      val mergedPatterns = LSHClustering.mergePatternsByLabel(spark, clusteredNodes)
+      val endClusteringTime = System.currentTimeMillis()
+      val elapsedClusteringTime = endClusteringTime - startClusteringTime
+      val elapsedClusteringTimeInSeconds = elapsedClusteringTime / 1000.0
+      println(s"Elapsed time for clustering : $elapsedClusteringTimeInSeconds seconds")
+      println(s"Elapsed time for clustering: $elapsedClusteringTime milliseconds")
 
-        val mergedEdgesLabelOnly = LSHClustering.mergeEdgePatternsByEdgeLabel(spark, clusteredEdges)
-
-        // if (!nodesDF.columns.contains("original_label")) {
-        //   println("[INFO] Column 'original_label' is missing from the originalNodesDF. Please include it before running evaluation.")
-        // }
-        // else{
-        //   // Evaluation for LSH
-        //   println("\n=== Evaluation for LSH Nodes ===")
-        //   Evaluation.computeMetricsForNodes(spark, nodesDF, mergedPatterns)
-        //   println("\n=== Evaluation for LSH Edges (LABEL MERGED)===")
-        //   Evaluation.computeMetricsForEdges(spark, edgesDF, mergedEdgesLabelOnly)
-
-        // }
-
-        val updatedMergedPatterns = InferSchema.inferPropertyTypesFromMerged(nodesDF, mergedPatterns, "LSH Merged Nodes", Seq("mandatoryProperties", "optionalProperties"), "_nodeId")
-        val updatedMergedEdges = InferSchema.inferPropertyTypesFromMerged(edgesDF, mergedEdgesLabelOnly, "LSH Merged Edges", Seq("mandatoryProperties", "optionalProperties"), "edgeIdsInCluster")
-
-        println("Updated Merged Patterns LSH with Types:")
-        // updatedMergedPatterns.printSchema()
-        updatedMergedPatterns.show(100)
-
-        println("Updated Merged Edges LSH with Types:")
-        // updatedMergedEdges.printSchema()
-        updatedMergedEdges.show(100)
-
-        val updatedMergedEdgesWCardinalities = InferSchema.inferCardinalities(edgesDF, updatedMergedEdges)
-        println("Updated Merged Edges LSH with Types and Cardinalities:")
-        updatedMergedEdgesWCardinalities.show(5)
+      val mergedEdgesLabelOnly = LSHClustering.mergeEdgePatternsByEdgeLabel(spark, clusteredEdges)
 
 
-        PGSchemaExporterLoose.exportPGSchema(
+      val updatedMergedPatterns = InferSchema.inferPropertyTypesFromMerged(nodesDF, mergedPatterns, "LSH Merged Nodes", Seq("mandatoryProperties", "optionalProperties"), "_nodeId")
+      val updatedMergedEdges = InferSchema.inferPropertyTypesFromMerged(edgesDF, mergedEdgesLabelOnly, "LSH Merged Edges", Seq("mandatoryProperties", "optionalProperties"), "edgeIdsInCluster")
+
+      val updatedMergedEdgesWCardinalities = InferSchema.inferCardinalities(edgesDF, updatedMergedEdges)
+
+
+      PGSchemaExporterLoose.exportPGSchema(
+      updatedMergedPatterns,
+      updatedMergedEdgesWCardinalities,
+      "pg_schema_output_loose.txt"
+      )
+
+      PGSchemaExporterStrict.exportPGSchema(
+      updatedMergedPatterns,
+      updatedMergedEdgesWCardinalities,
+      "pg_schema_output_strict.txt"
+      )
+
+      XSDExporter.exportXSD(updatedMergedPatterns, updatedMergedEdgesWCardinalities, "schema_output.xsd")
+      val startTransformationTime = System.currentTimeMillis() 
+
+      val xsdPath = "schema_output.xsd"
+      XSDToXMLExporter.exportToXMLFromDataframes(
+        spark,
+        xsdPath,
+        "output_xml",
         updatedMergedPatterns,
         updatedMergedEdgesWCardinalities,
-        "pg_schema_output_loose.txt"
-        )
+        nodesDF,
+        edgesDF,
+        splitPerItems = true,
+        itemsPerFile = 10000
+      )
+      XSD2X3MLGenerator.generateX3ML(
+        xsdPath,
+        outputPath = "output_mappings.x3ml"
+      )
+      X3MLBatchRunner.runX3MLBatch(
+        inputFolder = "output_xml",
+        x3mlMapping = "output_mappings.x3ml",
+        policyFile = "generator-policies.xml",
+        x3mlEngineJar = "../../x3ml-engine.jar",
+        outputFolder = "output_trig"
+      )
 
-        PGSchemaExporterStrict.exportPGSchema(
-        updatedMergedPatterns,
-        updatedMergedEdgesWCardinalities,
-        "pg_schema_output_strict.txt"
-        )
-
-        XSDExporter.exportXSD(updatedMergedPatterns, updatedMergedEdgesWCardinalities, "schema_output.xsd")
-
-        val xsdPath = "schema_output.xsd"
-        XSDToXMLExporter.exportToXMLFromDataframes(
-          spark,
-          xsdPath,
-          "output_xml",
-          updatedMergedPatterns,
-          updatedMergedEdgesWCardinalities,
-          nodesDF,
-          edgesDF,
-          splitPerItems = true,
-          itemsPerFile = 100
-        )
-        XSD2X3MLGenerator.generateX3ML(
-          xsdPath,
-          outputPath = "output_mappings.x3ml"
-        )
-        X3MLBatchRunner.runX3MLBatch(
-          inputFolder = "output_xml",
-          x3mlMapping = "output_mappings.x3ml",
-          policyFile = "generator-policies.xml",
-          x3mlEngineJar = "../../x3ml-engine.jar",
-          outputFolder = "output_trig"
-        )
-
-    } 
-    val endTime = System.currentTimeMillis()
-    val elapsedTime = endTime - startTime
-    val elapsedTimeInSeconds = elapsedTime / 1000.0
-    println(s"Elapsed time for proccesing : $elapsedTimeInSeconds seconds")
-    println(s"Elapsed time for proccesing: $elapsedTime milliseconds")
-    spark.stop()
+      val endTransformationTime = System.currentTimeMillis()
+      val elapsedTime = endTransformationTime - startTransformationTime
+      val elapsedTimeInSeconds = elapsedTime / 1000.0
+      println(s"Elapsed time for transformation : $elapsedTimeInSeconds seconds")
+      println(s"Elapsed time for transformation: $elapsedTime milliseconds")
+      spark.stop()
   }
 }

@@ -10,6 +10,675 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
   <mappings>
     <mapping namedgraph="custom">
       <domain>
+        <source_node>//Forum</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Forum</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">Forum</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./title</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_title</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./title</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./creationDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_creationDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./creationDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//Comment</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Comment</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">Comment</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./browserUsed</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_browserUsed</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./browserUsed</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./content</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_content</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./content</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./locationIP</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_locationIP</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./locationIP</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./length</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_length</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./length</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./creationDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_creationDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./creationDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//TagClass</source_node>
+        <target_node>
+          <entity>
+            <type>custom:TagClass</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">TagClass</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./name</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_name</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./name</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./url</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_url</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./url</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//Organisation</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Organisation</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">Organisation</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./type</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_type</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./type</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./name</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_name</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./name</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./url</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_url</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./url</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//Post</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Post</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">Post</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./browserUsed</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_browserUsed</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./browserUsed</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./locationIP</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_locationIP</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./locationIP</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./length</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_length</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./length</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./creationDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_creationDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./creationDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./imageFile</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_imageFile</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./imageFile</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./content</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_content</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./content</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./language</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_language</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./language</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//Tag</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Tag</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">id/text()</arg>
+              <arg name="type" type="constant">Tag</arg>
+            </instance_generator>
+            <label_generator name="Label">
+              <arg name="label" type="xpath">id/text()</arg>
+            </label_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./name</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_name</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./name</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./id</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_id</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./id</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>./url</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:has_url</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>./url</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
         <source_node>//Person</source_node>
         <target_node>
           <entity>
@@ -195,99 +864,34 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//Place</source_node>
+        <source_node>//REPLY_OF/source/Comment</source_node>
         <target_node>
           <entity>
-            <type>custom:Place</type>
+            <type>custom:Comment</type>
             <instance_generator name="URIwithType">
-              <arg name="id" type="xpath">id/text()</arg>
-              <arg name="type" type="constant">Place</arg>
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Comment</arg>
             </instance_generator>
-            <label_generator name="Label">
-              <arg name="label" type="xpath">id/text()</arg>
-            </label_generator>
           </entity>
         </target_node>
       </domain>
       <link>
         <path>
           <source_relation>
-            <relation>./type</relation>
+            <relation>../../target/Comment</relation>
           </source_relation>
           <target_relation>
-            <relationship>custom:has_type</relationship>
+            <relationship>custom:REPLY_OF</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>./type</source_node>
+          <source_node>../../target/Comment</source_node>
           <target_node>
             <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
-      <link>
-        <path>
-          <source_relation>
-            <relation>./name</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:has_name</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>./name</source_node>
-          <target_node>
-            <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
-      <link>
-        <path>
-          <source_relation>
-            <relation>./id</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:has_id</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>./id</source_node>
-          <target_node>
-            <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
-      <link>
-        <path>
-          <source_relation>
-            <relation>./url</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:has_url</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>./url</source_node>
-          <target_node>
-            <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
+              <type>custom:Comment</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Comment</arg>
               </instance_generator>
             </entity>
           </target_node>
@@ -296,45 +900,7 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//Email</source_node>
-        <target_node>
-          <entity>
-            <type>custom:Email</type>
-            <instance_generator name="URIwithType">
-              <arg name="id" type="xpath">id/text()</arg>
-              <arg name="type" type="constant">Email</arg>
-            </instance_generator>
-            <label_generator name="Label">
-              <arg name="label" type="xpath">id/text()</arg>
-            </label_generator>
-          </entity>
-        </target_node>
-      </domain>
-      <link>
-        <path>
-          <source_relation>
-            <relation>./address</relation>
-          </source_relation>
-          <target_relation>
-            <relationship>custom:has_address</relationship>
-          </target_relation>
-        </path>
-        <range>
-          <source_node>./address</source_node>
-          <target_node>
-            <entity>
-              <type>rdfs:Literal</type>
-              <instance_generator name="Literal">
-                <arg name="text" type="xpath">text()</arg>
-              </instance_generator>
-            </entity>
-          </target_node>
-        </range>
-      </link>
-    </mapping>
-    <mapping namedgraph="custom">
-      <domain>
-        <source_node>//HAS_EMAIL/source/Person</source_node>
+        <source_node>//STUDIES_AT/source/Person</source_node>
         <target_node>
           <entity>
             <type>custom:Person</type>
@@ -348,20 +914,20 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../target/Email</relation>
+            <relation>../../target/Organisation</relation>
           </source_relation>
           <target_relation>
-            <relationship>custom:HAS_EMAIL</relationship>
+            <relationship>custom:STUDIES_AT</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../target/Email</source_node>
+          <source_node>../../target/Organisation</source_node>
           <target_node>
             <entity>
-              <type>custom:Email</type>
+              <type>custom:Organisation</type>
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">Email</arg>
+                <arg name="type" type="constant">Organisation</arg>
               </instance_generator>
             </entity>
           </target_node>
@@ -370,14 +936,14 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../since</relation>
+            <relation>../../classYear</relation>
           </source_relation>
           <target_relation>
-            <relationship>custom:HAS_EMAIL_since</relationship>
+            <relationship>custom:STUDIES_AT_classYear</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../since</source_node>
+          <source_node>../../classYear</source_node>
           <target_node>
             <entity>
               <type>rdfs:Literal</type>
@@ -391,7 +957,43 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
     </mapping>
     <mapping namedgraph="custom">
       <domain>
-        <source_node>//IS_LOCATED_IN/source/Person</source_node>
+        <source_node>//HAS_MODERATOR/source/Forum</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Forum</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Forum</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Person</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_MODERATOR</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Person</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Person</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Person</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//WORKS_AT/source/Person</source_node>
         <target_node>
           <entity>
             <type>custom:Person</type>
@@ -405,20 +1007,149 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
       <link>
         <path>
           <source_relation>
-            <relation>../../target/Place</relation>
+            <relation>../../target/Organisation</relation>
           </source_relation>
           <target_relation>
-            <relationship>custom:IS_LOCATED_IN</relationship>
+            <relationship>custom:WORKS_AT</relationship>
           </target_relation>
         </path>
         <range>
-          <source_node>../../target/Place</source_node>
+          <source_node>../../target/Organisation</source_node>
           <target_node>
             <entity>
-              <type>custom:Place</type>
+              <type>custom:Organisation</type>
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
-                <arg name="type" type="constant">Place</arg>
+                <arg name="type" type="constant">Organisation</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../workFrom</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:WORKS_AT_workFrom</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../workFrom</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//IS_SUBCLASS_OF/source/TagClass</source_node>
+        <target_node>
+          <entity>
+            <type>custom:TagClass</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">TagClass</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/TagClass</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:IS_SUBCLASS_OF</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/TagClass</source_node>
+          <target_node>
+            <entity>
+              <type>custom:TagClass</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">TagClass</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//HAS_CREATOR/source/Person</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Person</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Person</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Person</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_CREATOR</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Person</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Person</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Person</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//CONTAINER_OF/source/Forum</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Forum</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Forum</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Post</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:CONTAINER_OF</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Post</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Post</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Post</arg>
               </instance_generator>
             </entity>
           </target_node>
@@ -455,6 +1186,321 @@ source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd" 
               <instance_generator name="URIwithType">
                 <arg name="id" type="xpath">text()</arg>
                 <arg name="type" type="constant">Place</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//LIKES/source/Person</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Person</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Person</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Comment</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:LIKES</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Comment</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Comment</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Comment</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../creationDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:LIKES_creationDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../creationDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//HAS_INTEREST/source/Person</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Person</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Person</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Tag</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_INTEREST</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Tag</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Tag</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Tag</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//IS_LOCATED_IN/source/Comment</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Comment</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Comment</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Place</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:IS_LOCATED_IN</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Place</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Place</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Place</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//HAS_TYPE/source/Tag</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Tag</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Tag</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/TagClass</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_TYPE</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/TagClass</source_node>
+          <target_node>
+            <entity>
+              <type>custom:TagClass</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">TagClass</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//KNOWS/source/Person</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Person</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Person</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Person</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:KNOWS</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Person</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Person</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Person</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../creationDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:KNOWS_creationDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../creationDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//HAS_TAG/source/Forum</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Forum</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Forum</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Tag</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_TAG</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Tag</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Tag</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Tag</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+    </mapping>
+    <mapping namedgraph="custom">
+      <domain>
+        <source_node>//HAS_MEMBER/source/Forum</source_node>
+        <target_node>
+          <entity>
+            <type>custom:Forum</type>
+            <instance_generator name="URIwithType">
+              <arg name="id" type="xpath">text()</arg>
+              <arg name="type" type="constant">Forum</arg>
+            </instance_generator>
+          </entity>
+        </target_node>
+      </domain>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../target/Person</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_MEMBER</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../target/Person</source_node>
+          <target_node>
+            <entity>
+              <type>custom:Person</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">text()</arg>
+                <arg name="type" type="constant">Person</arg>
+              </instance_generator>
+            </entity>
+          </target_node>
+        </range>
+      </link>
+      <link>
+        <path>
+          <source_relation>
+            <relation>../../joinDate</relation>
+          </source_relation>
+          <target_relation>
+            <relationship>custom:HAS_MEMBER_joinDate</relationship>
+          </target_relation>
+        </path>
+        <range>
+          <source_node>../../joinDate</source_node>
+          <target_node>
+            <entity>
+              <type>rdfs:Literal</type>
+              <instance_generator name="Literal">
+                <arg name="text" type="xpath">text()</arg>
               </instance_generator>
             </entity>
           </target_node>

@@ -129,7 +129,7 @@ object XSDExporter {
     scalaType.trim.toLowerCase match {
       case "string" => "xs:string"
       case "int" | "integer" | "int32" => "xs:integer"
-      case "double" => "xs:double"
+      case "double" => "xs:decimal"
       case "boolean" => "xs:boolean"
       case "date" => "xs:date"
       case _ => "xs:string"

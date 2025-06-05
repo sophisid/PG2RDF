@@ -27,7 +27,7 @@ object X3MLBatchRunner {
     xmlFiles.foreach { file =>
       val trigFile = new File(outDir, file.getName.replaceAll("\\.xml$", ".trig"))
       val cmd = Seq(
-        "java", "-Xms10g", "-Xmx12g", "-jar", x3mlEngineJar,
+        "java", "-Xms10g", "-Xmx16g", "-jar", x3mlEngineJar,
         "--input", file.getAbsolutePath,
         "--x3ml", x3mlMapping,
         "--policy", policyFile,
