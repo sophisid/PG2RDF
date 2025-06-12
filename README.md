@@ -300,9 +300,17 @@ If you prefer more control, follow the manual steps:
 5. Stop Neo4j and clean up if needed.
 
 #### ⚠️ Testing locally 
-If you are testing PG-HIVE on a local machine or with a large dataset, make sure to add a LIMIT clause in the loadAllNodes and loadAllRelationships methods inside DataLoader.scala to avoid excessive memory consumption or long execution times.
+If you are testing PG2RDF on a local machine or with a large dataset, make sure to add a LIMIT clause in the loadAllNodes and loadAllRelationships methods inside DataLoader.scala to avoid excessive memory consumption or long execution times.
 
 ## Notes
 
 - The framework supports intermediate nodes to represent relationships with properties.
 - All components are modular and can be replaced or extended for other domains or datasets.
+
+---
+
+## License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
