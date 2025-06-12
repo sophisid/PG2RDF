@@ -100,16 +100,23 @@ object XSDExporter {
 
       <xs:complexType name={relType}>
         <xs:sequence>
-           <xs:annotation>
+          <xs:annotation>
             <xs:appinfo>
               <type>edge</type>
             </xs:appinfo>
           </xs:annotation>
-          {sourceElements}
-          {targetElements}
+          <xs:choice minOccurs="1" maxOccurs="1">
+            {sourceElements}
+          </xs:choice>
+          <xs:choice minOccurs="1" maxOccurs="1">
+            {targetElements}
+          </xs:choice>
           {propElements}
         </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="label" type="xs:string"/>
       </xs:complexType>
+
     }
 
     val schema =

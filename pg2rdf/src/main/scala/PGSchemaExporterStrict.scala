@@ -108,7 +108,6 @@ object PGSchemaExporterStrict {
       writer.println(s"  (:$srcType)-[$relName]->(:$dstType),")
     }
 
-    writer.println("\n  // Constraints")
 
     edgeTypeNames.foreach { case (relName, row) =>
       val srcLabels = row.getAs[Seq[String]]("srcLabels")

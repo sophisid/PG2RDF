@@ -7,21 +7,32 @@ object XSD2X3MLGenerator {
 
   def parseXSD(path: String): Seq[ComplexType] = {
     val xsd = XML.loadFile(path)
+
     (xsd \ "complexType").map { ct =>
       val name = (ct \ "@name").text
       val kind = {
-        val appinfoText = (ct \ "annotation" \ "appinfo").text +
-                          (ct \ "sequence" \ "annotation" \ "appinfo").text
+        val appinfoText = (ct \\ "appinfo").text
         if (appinfoText.contains("node")) "node"
         else if (appinfoText.contains("edge")) "edge"
         else "unknown"
       }
-      val fields = (ct \ "sequence" \ "element").map { el =>
+
+      val directFields = (ct \\ "sequence" \ "element").map { el =>
         val fname = (el \ "@name").text
         val ftype = (el \ "@type").text
         (fname, ftype)
       }
-      ComplexType(name, kind, fields)
+
+      val choiceFields = (ct \\ "choice").flatMap { choice =>
+        (choice \ "element").map { el =>
+          val fname = (el \ "@name").text
+          val ftype = (el \ "@type").text
+          (fname, ftype)
+        }
+      }
+
+      val allFields = (directFields ++ choiceFields).distinct
+      ComplexType(name, kind, allFields)
     }
   }
 
@@ -78,77 +89,62 @@ object XSD2X3MLGenerator {
             </range>
           </link>
         }
-
         Seq(<mapping namedgraph="custom">{domain ++ links}</mapping>)
 
-      case ct if ct.kind == "edge" =>
-        val sourceTypeOpt = ct.fields.find(_._1 == "source").map(_._2).getOrElse("UnknownSource")
-        val targetTypeOpt = ct.fields.find(_._1 == "target").map(_._2).getOrElse("UnknownTarget")
+case ct if ct.kind == "edge" =>
+  val sourceTypeOpt = ct.fields.find(_._1 == "source").map(_._2).getOrElse("UnknownSource")
+  val targetTypeOpt = ct.fields.find(_._1 == "target").map(_._2).getOrElse("UnknownTarget")
+  val edgeProperties = ct.fields.filterNot(f => f._1 == "source" || f._1 == "target")
 
-        val domain =
-          <domain>
-            <source_node>//{ct.name}/source/{sourceTypeOpt}</source_node>
-            <target_node>
-              <entity>
-                <type>custom:{sourceTypeOpt}</type>
-                <instance_generator name="URIwithType">
-                  <arg name="id" type="xpath">text()</arg>
-                  <arg name="type" type="constant">{sourceTypeOpt}</arg>
-                </instance_generator>
-              </entity>
-            </target_node>
-          </domain>
+  val propertyAdditionals = edgeProperties.map { case (propName, _) =>
+    <additional>
+      <relationship>custom:{ct.name}_{propName}</relationship>
+      <entity>
+        <type>rdfs:Literal</type>
+        <instance_generator name="Literal">
+          <arg name="text" type="xpath">../../{propName}/text()</arg>
+        </instance_generator>
+      </entity>
+    </additional>
+  }
 
-        val mainLink =
-          <link>
-            <path>
-              <source_relation>
-                <relation>../../target/{targetTypeOpt}</relation>
-              </source_relation>
-              <target_relation>
-                <relationship>custom:{ct.name}</relationship>
-              </target_relation>
-            </path>
-            <range>
-              <source_node>../../target/{targetTypeOpt}</source_node>
-              <target_node>
+  val domain =
+    <domain>
+      <source_node>//{ct.name}/source/{sourceTypeOpt}</source_node>
+      <target_node>
+        <entity>
+          <type>custom:{sourceTypeOpt}</type>
+          <instance_generator name="URIwithType">
+            <arg name="id" type="xpath">text()</arg>
+            <arg name="type" type="constant">{sourceTypeOpt}</arg>
+          </instance_generator>
+          <additional>
+            <relationship>custom:{ct.name}</relationship>
+            <entity>
+              <type>custom:intermediate</type>
+              <instance_generator name="URIwithType">
+                <arg name="id" type="xpath">../../id/text()</arg>
+                <arg name="type" type="constant">{ct.name}</arg>
+              </instance_generator>
+              <additional>
+                <relationship>custom:hasTarget</relationship>
                 <entity>
                   <type>custom:{targetTypeOpt}</type>
                   <instance_generator name="URIwithType">
-                    <arg name="id" type="xpath">text()</arg>
+                    <arg name="id" type="xpath">../../target/{targetTypeOpt}/text()</arg>
                     <arg name="type" type="constant">{targetTypeOpt}</arg>
                   </instance_generator>
                 </entity>
-              </target_node>
-            </range>
-          </link>
+              </additional>
+              {propertyAdditionals}
+            </entity>
+          </additional>
+        </entity>
+      </target_node>
+    </domain>
 
-        val edgePropertyLinks = ct.fields.collect {
-          case (fname, _) if fname != "source" && fname != "target" =>
-            <link>
-              <path>
-                <source_relation>
-                  <relation>../../{fname}</relation>
-                </source_relation>
-                <target_relation>
-                  <relationship>custom:{ct.name}_{fname}</relationship>
-                </target_relation>
-              </path>
-              <range>
-                <source_node>../../{fname}</source_node>
-                <target_node>
-                  <entity>
-                    <type>rdfs:Literal</type>
-                    <instance_generator name="Literal">
-                      <arg name="text" type="xpath">text()</arg>
-                    </instance_generator>
-                  </entity>
-                </target_node>
-              </range>
-            </link>
-        }
+  Seq(<mapping namedgraph="custom">{domain}</mapping>)
 
-        Seq(<mapping namedgraph="custom">{domain ++ mainLink ++ edgePropertyLinks}</mapping>)
 
       case _ => Nil
     }
