@@ -73,3 +73,5 @@ pg2rdf/output_trig/*
 pg2rdf/output_xml/*
 pg2rdf/output_trig_*
 README_2.md
+
+run_local*
