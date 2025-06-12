@@ -7,18 +7,19 @@
 The PG2RDF pipeline follows a multi-step process:
 
 1. Data Ingestion: Load property graph datasets from Neo4j.
-2. Schema and Data Extraction: Extract PG schema in XSD.
-3. Populate XML data from the discovered schema.
-4. Transformation to RDF: Convert the XML representation into RDF triples using the X3ML Engine.
-5. Output: RDF triples are exported in `.trig` format for use in knowledge graph applications or semantic integration.
+2. Schema and Data Extraction: Extract PG schema in XSD, using PG-HIVE.
+3. Creating automatically X3ML Mappings.
+4. Populate XML data from the discovered schema.
+6. Transformation to RDF: Convert the XML representation into RDF triples using the X3ML Engine.
+7. Output: RDF triples are exported in `.trig` format for use in knowledge graph applications or semantic integration.
 
 ## Requirements
 
 - Java 11+
 - Scala 2.12+
-- Apache Spark (optional, for parallel processing)
+- Apache Spark
 - Neo4j Community Edition 4.4.0
-- X3ML Engine (`x3ml-engine.jar`)
+- [X3ML Engine](https://github.com/isl/x3ml) (`x3ml-engine.jar`)
 
 ## Dataset Preparation
 
@@ -26,7 +27,7 @@ Datasets must first be imported into Neo4j. Three datasets are currently support
 
 - FIB25 (NeuPrint)
 - MB6 (NeuPrint)
-- LDBC SNB (Social Network Benchmark)
+- LDBC (Social Network Benchmark)
 
 Example shell commands for dataset loading are included in:
 
@@ -34,7 +35,7 @@ Example shell commands for dataset loading are included in:
 - `run_pg2rdf_mb6.sh`
 - `run_pg2rdf_ldbc.sh`
 
-Each script utilizes the `neo4j-admin import` tool. Below is an indicative example for FIB25 (please replace the dataset path with your own):
+Each script utilizes the `neo4j-admin import` tool and runs the pipeline.
 
 ## Dataset Preparation
 
