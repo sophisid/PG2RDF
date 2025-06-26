@@ -238,6 +238,7 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
         outputPath = "output_mappings.x3ml"
       )
       X3MLBatchRunner.runX3MLBatch(
+        spark,
         inputFolder = "output_xml",
         x3mlMapping = "output_mappings.x3ml",
         policyFile = "generator-policies.xml",
