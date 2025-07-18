@@ -1,5 +1,5 @@
 <xs:schema name="NewGraphSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="mushroombody_Synapse">
+  <xs:complexType name="Synapse:medulla7column_Synapse">
     <xs:annotation>
       <xs:appinfo>
         <type>node</type>
@@ -7,17 +7,15 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="location" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="confidence" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="alpha2" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha1" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha3" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="distal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="proximal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="mushroombody_Segment">
+  <xs:complexType name="Segment:medulla7column_Segment:Neuron">
     <xs:annotation>
       <xs:appinfo>
         <type>node</type>
@@ -26,22 +24,21 @@
     <xs:sequence>
       <xs:element name="post" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="bodyId" type="xs:integer" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="statusLabel" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="size" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="roiInfo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="pre" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="cropped" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="distal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
       <xs:element name="instance" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="statusLabel" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha3" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha2" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha1" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="proximal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="medulla7column_Meta">
+  <xs:complexType name="Meta:medulla7column_Meta">
     <xs:annotation>
       <xs:appinfo>
         <type>node</type>
@@ -60,7 +57,6 @@
       name="preHPThreshold" type="xs:decimal" minOccurs="1" maxOccurs="1">
 </xs:element>
       <xs:element name="primaryRois" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element 
       name="neuroglancerInfo" type="xs:string" minOccurs="1" maxOccurs="1">
 </xs:element>
@@ -84,13 +80,13 @@
       <xs:element 
       name="neuroglancerMeta" type="xs:string" minOccurs="1" maxOccurs="1">
 </xs:element>
-      <xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="uuid" type="xs:date" minOccurs="1" maxOccurs="1"/>
       <xs:element name="meshHost" type="xs:string" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="mushroombody_Neuron">
+  <xs:complexType name="Segment:medulla7column_Segment:Neuron">
     <xs:annotation>
       <xs:appinfo>
         <type>node</type>
@@ -99,23 +95,30 @@
     <xs:sequence>
       <xs:element name="post" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="bodyId" type="xs:integer" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="statusLabel" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="size" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="roiInfo" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="pre" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="cropped" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
       <xs:element name="instance" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha2" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha1" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha3" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="statusLabel" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="proximal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="distal" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
-  <xs:complexType name="mushroombody_Neuron">
+  <xs:complexType name="SynapseSet:medulla7column_SynapseSet">
+    <xs:annotation>
+      <xs:appinfo>
+        <type>node</type>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType 
+  name="Segment:medulla7column_Segment:Neuron:medulla7column_Neuron">
     <xs:annotation>
       <xs:appinfo>
         <type>node</type>
@@ -123,35 +126,19 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="post" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="cropped" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="instance" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="bodyId" type="xs:integer" minOccurs="1" maxOccurs="1"/>
       <xs:element name="statusLabel" type="xs:string" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="size" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="proximal" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
       <xs:element name="roiInfo" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="pre" type="xs:integer" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="instance" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha3" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha2" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="alpha1" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="cropped" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="label" type="xs:string"/>
-  </xs:complexType>
-  <xs:complexType name="mushroombody_SynapseSet">
-    <xs:annotation>
-      <xs:appinfo>
-        <type>node</type>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="labels_concat" type="xs:string" minOccurs="1" maxOccurs="1"/>
-    </xs:sequence>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="label" type="xs:string"/>
-  </xs:complexType>
+</xs:complexType>
   <xs:complexType name="CONNECTS_TO">
     <xs:sequence>
       <xs:annotation>
@@ -160,14 +147,18 @@
         </xs:appinfo>
       </xs:annotation>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="source" type="mushroombody_Neuron"/>
-        <xs:element name="source" type="mushroombody_SynapseSet"/>
-        <xs:element name="source" type="mushroombody_Segment"/>
+        <xs:element name="source" type="SynapseSet:medulla7column_SynapseSet"/>
+        <xs:element name="source" type="Segment:medulla7column_Segment:Neuron"/>
+        <xs:element 
+        name="source" type="Segment:medulla7column_Segment:Neuron:medulla7column_Neuron">
+</xs:element>
       </xs:choice>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="target" type="mushroombody_Neuron"/>
-        <xs:element name="target" type="mushroombody_SynapseSet"/>
-        <xs:element name="target" type="mushroombody_Segment"/>
+        <xs:element name="target" type="SynapseSet:medulla7column_SynapseSet"/>
+        <xs:element name="target" type="Segment:medulla7column_Segment:Neuron"/>
+        <xs:element 
+        name="target" type="Segment:medulla7column_Segment:Neuron:medulla7column_Neuron">
+</xs:element>
       </xs:choice>
       <xs:element name="weightHP" type="xs:integer" minOccurs="0" maxOccurs="1"/>
       <xs:element name="weight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
@@ -184,13 +175,15 @@
         </xs:appinfo>
       </xs:annotation>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="source" type="mushroombody_Neuron"/>
-        <xs:element name="source" type="mushroombody_SynapseSet"/>
-        <xs:element name="source" type="mushroombody_Segment"/>
+        <xs:element name="source" type="SynapseSet:medulla7column_SynapseSet"/>
+        <xs:element name="source" type="Segment:medulla7column_Segment:Neuron"/>
+        <xs:element 
+        name="source" type="Segment:medulla7column_Segment:Neuron:medulla7column_Neuron">
+</xs:element>
       </xs:choice>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="target" type="mushroombody_SynapseSet"/>
-        <xs:element name="target" type="mushroombody_Synapse"/>
+        <xs:element name="target" type="SynapseSet:medulla7column_SynapseSet"/>
+        <xs:element name="target" type="Synapse:medulla7column_Synapse"/>
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -204,10 +197,10 @@
         </xs:appinfo>
       </xs:annotation>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="source" type="mushroombody_Synapse"/>
+        <xs:element name="source" type="Synapse:medulla7column_Synapse"/>
       </xs:choice>
       <xs:choice minOccurs="1" maxOccurs="1">
-        <xs:element name="target" type="mushroombody_Synapse"/>
+        <xs:element name="target" type="Synapse:medulla7column_Synapse"/>
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>

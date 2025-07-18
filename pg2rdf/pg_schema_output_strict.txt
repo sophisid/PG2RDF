@@ -1,10 +1,10 @@
 -- NODE TYPES --
-CREATE NODE TYPE mushroombody_SynapseType : mushroombody_Synapse {type STRING, labels_concat STRING, location STRING, confidence DOUBLE, OPTIONAL alpha2 BOOLEAN, OPTIONAL alpha1 BOOLEAN, OPTIONAL alpha3 BOOLEAN};
-CREATE NODE TYPE mushroombody_SegmentType : mushroombody_Segment {post INTEGER, bodyId INTEGER, labels_concat STRING, size INTEGER, roiInfo STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL instance STRING, OPTIONAL statusLabel STRING, OPTIONAL status STRING, OPTIONAL alpha3 BOOLEAN, OPTIONAL alpha2 BOOLEAN, OPTIONAL alpha1 BOOLEAN};
-CREATE NODE TYPE medulla7column_MetaType : medulla7column_Meta {postHighAccuracyThreshold DOUBLE, totalPreCount INTEGER, latestMutationId INTEGER, preHPThreshold DOUBLE, primaryRois STRING, labels_concat STRING, neuroglancerInfo STRING, statusDefinitions STRING, logo STRING, totalPostCount INTEGER, roiHierarchy STRING, postHPThreshold DOUBLE, dataset STRING, roiInfo STRING, superLevelRois STRING, lastDatabaseEdit DATE, neuroglancerMeta STRING, uuid STRING, meshHost STRING};
-CREATE NODE TYPE mushroombody_NeuronType : mushroombody_Neuron {post INTEGER, bodyId INTEGER, statusLabel STRING, labels_concat STRING, size INTEGER, roiInfo STRING, status STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL type STRING, OPTIONAL instance STRING, OPTIONAL alpha2 BOOLEAN, OPTIONAL alpha1 BOOLEAN, OPTIONAL alpha3 BOOLEAN};
-CREATE NODE TYPE mushroombody_Neuron_mushroombody_SegmentType : mushroombody_Neuron | mushroombody_Segment {post INTEGER, bodyId INTEGER, statusLabel STRING, labels_concat STRING, size INTEGER, roiInfo STRING, status STRING, pre INTEGER, OPTIONAL instance STRING, OPTIONAL alpha3 BOOLEAN, OPTIONAL alpha2 BOOLEAN, OPTIONAL alpha1 BOOLEAN, OPTIONAL cropped BOOLEAN, OPTIONAL type STRING};
-CREATE NODE TYPE mushroombody_SynapseSetType : mushroombody_SynapseSet {labels_concat STRING};
+CREATE NODE TYPE Synapse:medulla7column_SynapseType : Synapse:medulla7column_Synapse {type STRING, location STRING, confidence DOUBLE, OPTIONAL distal BOOLEAN, OPTIONAL proximal BOOLEAN};
+CREATE NODE TYPE Segment:medulla7column_Segment:Neuron_Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType : Segment:medulla7column_Segment:Neuron | Segment:medulla7column_Segment:Neuron:medulla7column_Neuron {post INTEGER, bodyId INTEGER, statusLabel STRING, size INTEGER, roiInfo STRING, status STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL type STRING, OPTIONAL distal BOOLEAN, OPTIONAL instance STRING, OPTIONAL proximal BOOLEAN};
+CREATE NODE TYPE Meta:medulla7column_MetaType : Meta:medulla7column_Meta {postHighAccuracyThreshold DOUBLE, totalPreCount INTEGER, latestMutationId INTEGER, preHPThreshold DOUBLE, primaryRois STRING, neuroglancerInfo STRING, statusDefinitions STRING, logo STRING, totalPostCount INTEGER, roiHierarchy STRING, postHPThreshold DOUBLE, dataset STRING, roiInfo STRING, superLevelRois STRING, lastDatabaseEdit DATE, neuroglancerMeta STRING, uuid DATE, meshHost STRING};
+CREATE NODE TYPE Segment:medulla7column_Segment:NeuronType : Segment:medulla7column_Segment:Neuron {post INTEGER, bodyId INTEGER, size INTEGER, roiInfo STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL instance STRING, OPTIONAL statusLabel STRING, OPTIONAL proximal BOOLEAN, OPTIONAL status STRING, OPTIONAL distal BOOLEAN};
+CREATE NODE TYPE SynapseSet:medulla7column_SynapseSetType : SynapseSet:medulla7column_SynapseSet;
+CREATE NODE TYPE Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType : Segment:medulla7column_Segment:Neuron:medulla7column_Neuron {post INTEGER, cropped BOOLEAN, instance STRING, bodyId INTEGER, statusLabel STRING, size INTEGER, proximal BOOLEAN, roiInfo STRING, status STRING, pre INTEGER};
 
 -- EDGE TYPES --
 CREATE EDGE TYPE connects_toType : CONNECTS_TO {OPTIONAL weightHP INTEGER, OPTIONAL weight INTEGER, OPTIONAL roiInfo STRING};
@@ -12,15 +12,13 @@ CREATE EDGE TYPE containsType : CONTAINS;
 CREATE EDGE TYPE synapses_toType : SYNAPSES_TO;
 
 CREATE GRAPH TYPE NewGraphSchema STRICT {
-  (mushroombody_SynapseType),
-  (mushroombody_SegmentType),
-  (medulla7column_MetaType),
-  (mushroombody_NeuronType),
-  (mushroombody_Neuron_mushroombody_SegmentType),
-  (mushroombody_SynapseSetType),
-  (:mushroombody_NeuronType|mushroombody_SynapseSetType|mushroombody_SegmentType)-[connects_toType]->(:mushroombody_NeuronType|mushroombody_SynapseSetType|mushroombody_SegmentType),
-  (:mushroombody_NeuronType|mushroombody_SynapseSetType|mushroombody_SegmentType)-[containsType]->(:mushroombody_SynapseSetType|mushroombody_SynapseType),
-  (:mushroombody_SynapseType)-[synapses_toType]->(:mushroombody_SynapseType),
-
-  // Constraints
+  (Synapse:medulla7column_SynapseType),
+  (Segment:medulla7column_Segment:Neuron_Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
+  (Meta:medulla7column_MetaType),
+  (Segment:medulla7column_Segment:NeuronType),
+  (SynapseSet:medulla7column_SynapseSetType),
+  (Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
+  (:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType)-[connects_toType]->(:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
+  (:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType)-[containsType]->(:SynapseSet:medulla7column_SynapseSetType|Synapse:medulla7column_SynapseType),
+  (:Synapse:medulla7column_SynapseType)-[synapses_toType]->(:Synapse:medulla7column_SynapseType),
 }

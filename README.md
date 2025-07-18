@@ -1,4 +1,4 @@
-# PG2RDF: A Framework for Converting Property Graphs to RDF Using X3ML
+# PG2RDF: A Framework for Converting Property Graphs into RDF Using X3ML & RML
 
 **PG2RDF** is a framework designed for the transformation of property graphs, stored in Neo4j, into RDF representations using the X3ML mapping language. The pipeline supports graph datasets and enables structured data export in compliance with semantic web standards.
 
@@ -10,8 +10,8 @@ The PG2RDF pipeline follows a multi-step process:
 2. Schema and Data Extraction: Extract PG schema in XSD, using PG-HIVE.
 3. Creating automatically X3ML Mappings.
 4. Populate XML data from the discovered schema.
-6. Transformation to RDF: Convert the XML representation into RDF triples using the X3ML Engine.
-7. Output: RDF triples are exported in `.trig` format for use in knowledge graph applications or semantic integration.
+6. Transformation to RDF: Convert the XML representation into RDF triples using the X3ML Engine & RMLMapper.
+7. Output: RDF triples are exported in `.trig` and `.ttl` format for use in knowledge graph applications or semantic integration.
 
 ## Requirements
 
@@ -20,6 +20,7 @@ The PG2RDF pipeline follows a multi-step process:
 - Apache Spark
 - Neo4j Community Edition 4.4.0
 - [X3ML Engine](https://github.com/isl/x3ml) (`x3ml-engine.jar`)
+- [RMLMapper](https://github.com/RMLio/rmlmapper-java) (`rmlmapper.jar`)
 
 ## Dataset Preparation
 
@@ -194,6 +195,20 @@ X3MLBatchRunner.runX3MLBatch(
 )
 ```
 
+Same for the RMLMapper, you can download RML mapper .jar from [here](https://github.com/RMLio/rmlmapper-java)
+Ensure that the path to `rmlmapper.jar` is valid. If necessary, modify the relative path in the main class accordingly.
+
+```scala
+RMLBatchRunner.runRMLBatch(
+   spark,
+   inputFolder = "output_xml",
+   rmlMapping = "output_mappings_rml.ttl",
+   rmlMapperJar = "../../rmlmapper.jar",
+   outputFolder = "output_trig_rml",
+   numPartitions = 2
+)
+```
+
 ## Project Structure
 
 This repository contains the full pipeline for converting Property Graph datasets from Neo4j to RDF using X3ML. Below is an overview of the main directories and files included in the project.
@@ -222,7 +237,9 @@ PG2RDF/
 │           ├── PGSchemaExporterLoose.scala   # Schema export with loose type rules from PG-HIVE
 │           ├── PGSchemaExporterStrict.scala  # Schema export with strict type rules from PG-HIVE
 │           ├── PostProcessing.scala          # Post-processing from PG-HIVE
+│           ├── RMLBatchRunner.scala          # Wrapper for running RML Engine
 │           ├── X3MLBatchRunner.scala         # Wrapper for running X3ML Engine
+│           ├── XSD2RMLGenerator.scala        # Converts XSD to RML mapping rules
 │           ├── XSD2X3MLGenerator.scala       # Converts XSD to X3ML mapping rules
 │           ├── XSDExporter.scala             # Exports XSD schema from graph structure
 │           └── XSDToXMLGenerator.scala       # Exports XML based on schema and data
