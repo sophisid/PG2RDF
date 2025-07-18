@@ -1,4 +1,4 @@
-# PG2RDF: A Framework for Converting Property Graphs into RDF Using X3ML & RML
+# PG2RDF: A Framework for Converting Property Graphs into RDF Using [PG-HIVE](https://github.com/sophisid/PG-HIVE), [X3ML Engine](https://github.com/isl/x3ml) & [RMLMapper](https://github.com/RMLio/rmlmapper-java)
 
 **PG2RDF** is a framework designed for the transformation of property graphs, stored in Neo4j, into RDF representations using the X3ML mapping language. The pipeline supports graph datasets and enables structured data export in compliance with semantic web standards.
 
@@ -7,7 +7,7 @@
 The PG2RDF pipeline follows a multi-step process:
 
 1. Data Ingestion: Load property graph datasets from Neo4j.
-2. Schema and Data Extraction: Extract PG schema in XSD, using PG-HIVE.
+2. Schema and Data Extraction: Extract PG schema in XSD, using [PG-HIVE](https://github.com/sophisid/PG-HIVE).
 3. Creating automatically X3ML Mappings.
 4. Populate XML data from the discovered schema.
 6. Transformation to RDF: Convert the XML representation into RDF triples using the X3ML Engine & RMLMapper.
