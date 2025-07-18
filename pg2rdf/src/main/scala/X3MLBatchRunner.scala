@@ -57,8 +57,8 @@ object X3MLBatchRunner {
         }
       }
 
-      Iterator.empty // Δεν επιστρέφουμε τίποτα από τα partitions
-    }.count() // Trigger action
+      Iterator.empty
+    }.count()
 
     println(s"[DONE] All files processed in parallel using mapPartitions.")
   }
