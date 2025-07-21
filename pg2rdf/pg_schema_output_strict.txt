@@ -1,24 +1,56 @@
 -- NODE TYPES --
-CREATE NODE TYPE Synapse:medulla7column_SynapseType : Synapse:medulla7column_Synapse {type STRING, location STRING, confidence DOUBLE, OPTIONAL distal BOOLEAN, OPTIONAL proximal BOOLEAN};
-CREATE NODE TYPE Segment:medulla7column_Segment:Neuron_Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType : Segment:medulla7column_Segment:Neuron | Segment:medulla7column_Segment:Neuron:medulla7column_Neuron {post INTEGER, bodyId INTEGER, statusLabel STRING, size INTEGER, roiInfo STRING, status STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL type STRING, OPTIONAL distal BOOLEAN, OPTIONAL instance STRING, OPTIONAL proximal BOOLEAN};
-CREATE NODE TYPE Meta:medulla7column_MetaType : Meta:medulla7column_Meta {postHighAccuracyThreshold DOUBLE, totalPreCount INTEGER, latestMutationId INTEGER, preHPThreshold DOUBLE, primaryRois STRING, neuroglancerInfo STRING, statusDefinitions STRING, logo STRING, totalPostCount INTEGER, roiHierarchy STRING, postHPThreshold DOUBLE, dataset STRING, roiInfo STRING, superLevelRois STRING, lastDatabaseEdit DATE, neuroglancerMeta STRING, uuid DATE, meshHost STRING};
-CREATE NODE TYPE Segment:medulla7column_Segment:NeuronType : Segment:medulla7column_Segment:Neuron {post INTEGER, bodyId INTEGER, size INTEGER, roiInfo STRING, pre INTEGER, OPTIONAL cropped BOOLEAN, OPTIONAL instance STRING, OPTIONAL statusLabel STRING, OPTIONAL proximal BOOLEAN, OPTIONAL status STRING, OPTIONAL distal BOOLEAN};
-CREATE NODE TYPE SynapseSet:medulla7column_SynapseSetType : SynapseSet:medulla7column_SynapseSet;
-CREATE NODE TYPE Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType : Segment:medulla7column_Segment:Neuron:medulla7column_Neuron {post INTEGER, cropped BOOLEAN, instance STRING, bodyId INTEGER, statusLabel STRING, size INTEGER, proximal BOOLEAN, roiInfo STRING, status STRING, pre INTEGER};
+CREATE NODE TYPE ForumType : Forum {id DOUBLE, title STRING, creationDate DATE};
+CREATE NODE TYPE Tag_TagClassType : Tag | TagClass {name STRING, id DOUBLE, url STRING};
+CREATE NODE TYPE Organisation_PlaceType : Organisation | Place {type STRING, name STRING, id DOUBLE, url STRING};
+CREATE NODE TYPE PostType : Post {browserUsed STRING, id DOUBLE, locationIP STRING, length INTEGER, creationDate DATE, OPTIONAL imageFile STRING, OPTIONAL content STRING, OPTIONAL language STRING};
+CREATE NODE TYPE PersonType : Person {browserUsed STRING, lastName STRING, firstName STRING, gender STRING, id DOUBLE, locationIP STRING, creationDate DATE, birthday DATE};
+CREATE NODE TYPE CommentType : Comment {browserUsed STRING, content STRING, id DOUBLE, locationIP STRING, length INTEGER, creationDate DATE};
 
 -- EDGE TYPES --
-CREATE EDGE TYPE connects_toType : CONNECTS_TO {OPTIONAL weightHP INTEGER, OPTIONAL weight INTEGER, OPTIONAL roiInfo STRING};
-CREATE EDGE TYPE containsType : CONTAINS;
-CREATE EDGE TYPE synapses_toType : SYNAPSES_TO;
+CREATE EDGE TYPE container_ofType : CONTAINER_OF;
+CREATE EDGE TYPE has_creatorType : HAS_CREATOR;
+CREATE EDGE TYPE has_interestType : HAS_INTEREST;
+CREATE EDGE TYPE has_memberType : HAS_MEMBER {joinDate DATE};
+CREATE EDGE TYPE has_moderatorType : HAS_MODERATOR;
+CREATE EDGE TYPE has_tagType : HAS_TAG;
+CREATE EDGE TYPE has_typeType : HAS_TYPE;
+CREATE EDGE TYPE is_located_inType : IS_LOCATED_IN;
+CREATE EDGE TYPE is_part_ofType : IS_PART_OF;
+CREATE EDGE TYPE is_subclass_ofType : IS_SUBCLASS_OF;
+CREATE EDGE TYPE knowsType : KNOWS {creationDate DATE};
+CREATE EDGE TYPE likesType : LIKES {creationDate DATE};
+CREATE EDGE TYPE reply_ofType : REPLY_OF;
+CREATE EDGE TYPE studies_atType : STUDIES_AT {classYear INTEGER};
+CREATE EDGE TYPE works_atType : WORKS_AT {workFrom INTEGER};
 
 CREATE GRAPH TYPE NewGraphSchema STRICT {
-  (Synapse:medulla7column_SynapseType),
-  (Segment:medulla7column_Segment:Neuron_Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
-  (Meta:medulla7column_MetaType),
-  (Segment:medulla7column_Segment:NeuronType),
-  (SynapseSet:medulla7column_SynapseSetType),
-  (Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
-  (:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType)-[connects_toType]->(:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType),
-  (:SynapseSet:medulla7column_SynapseSetType|Segment:medulla7column_Segment:NeuronType|Segment:medulla7column_Segment:Neuron:medulla7column_NeuronType)-[containsType]->(:SynapseSet:medulla7column_SynapseSetType|Synapse:medulla7column_SynapseType),
-  (:Synapse:medulla7column_SynapseType)-[synapses_toType]->(:Synapse:medulla7column_SynapseType),
+  (ForumType),
+  (Tag_TagClassType),
+  (Organisation_PlaceType),
+  (PostType),
+  (PersonType),
+  (CommentType),
+  (:ForumType)-[container_ofType]->(:PostType),
+  (:PersonType|PostType)-[has_creatorType]->(:PersonType|CommentType),
+  (:PersonType)-[has_interestType]->(:TagType),
+  (:ForumType)-[has_memberType]->(:PersonType),
+  (:ForumType)-[has_moderatorType]->(:PersonType),
+  (:ForumType|CommentType|PostType)-[has_tagType]->(:TagType),
+  (:TagType)-[has_typeType]->(:TagClassType),
+  (:CommentType|OrganisationType|PersonType|PostType)-[is_located_inType]->(:PlaceType),
+  (:PlaceType)-[is_part_ofType]->(:PlaceType),
+  (:TagClassType)-[is_subclass_ofType]->(:TagClassType),
+  (:PersonType)-[knowsType]->(:PersonType),
+  (:PersonType)-[likesType]->(:CommentType|PostType),
+  (:CommentType)-[reply_ofType]->(:CommentType|PostType),
+  (:PersonType)-[studies_atType]->(:OrganisationType),
+  (:PersonType)-[works_atType]->(:OrganisationType),
+  FOR (x:PostType) SINGLETON x WITHIN (:ForumType)-[y: container_ofType]->(x)
+  FOR (x:ForumType) SINGLETON y WITHIN (x)-[y: has_moderatorType]->(:PersonType)
+  FOR (x:TagType) SINGLETON y WITHIN (x)-[y: has_typeType]->(:TagClassType)
+  FOR (x:CommentType|OrganisationType|PersonType|PostType) SINGLETON y WITHIN (x)-[y: is_located_inType]->(:PlaceType)
+  FOR (x:PlaceType) SINGLETON y WITHIN (x)-[y: is_part_ofType]->(:PlaceType)
+  FOR (x:TagClassType) SINGLETON y WITHIN (x)-[y: is_subclass_ofType]->(:TagClassType)
+  FOR (x:CommentType) SINGLETON y WITHIN (x)-[y: reply_ofType]->(:CommentType|PostType)
+  FOR (x:PersonType) SINGLETON y WITHIN (x)-[y: studies_atType]->(:OrganisationType)
 }

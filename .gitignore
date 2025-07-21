@@ -71,7 +71,11 @@ run_ldbc.sh
 # output files
 pg2rdf/output_trig/*
 pg2rdf/output_xml/*
-pg2rdf/output_trig_*
+pg2rdf/output_trig_fib
+pg2rdf/output_trig_mb6
+pg2rdf/output_trig_ldbc
+pg2rdf/output_trig_rml/*
+pg2rdf/output_trig_x3ml/*
 README_2.md
 
 run_local*

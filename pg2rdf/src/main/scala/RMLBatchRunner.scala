@@ -1,9 +1,19 @@
 import org.apache.spark.sql.SparkSession
-import java.io.File
+import java.io.{File, PrintWriter}
 import scala.sys.process._
 import scala.util.{Failure, Success, Try}
+import scala.io.Source
 
 object RMLBatchRunner {
+
+  /** Helper function to inject filename into mapping copy */
+  def patchMappingTemplate(templatePath: String, outputPath: String, inputFileName: String): Unit = {
+    val content = Source.fromFile(templatePath).mkString
+    val patched = content.replace("rml:source \"input.xml\"", s"""rml:source "$inputFileName"""")
+    val out = new PrintWriter(outputPath)
+    out.write(patched)
+    out.close()
+  }
 
   def runRMLBatch(
       spark: SparkSession,
@@ -34,28 +44,34 @@ object RMLBatchRunner {
     filesRDD.mapPartitions { filesIter =>
       filesIter.foreach { filePath =>
         val file = new File(filePath)
-        val outputFile = new File(outDir, file.getName.replaceAll("\\.xml$", ".trig"))
+        val fileName = file.getName
+        val outputFile = new File(outDir, fileName.replaceAll("\\.xml$", ".trig"))
+        val patchedMapping = new File(outDir, fileName.replaceAll("\\.xml$", ".patched.ttl"))
+
+        // Use full path for rml:source
+        patchMappingTemplate(rmlMapping, patchedMapping.getAbsolutePath, file.getAbsolutePath)
 
         val cmd = Seq(
           "java", "-Xmx8g", "-jar", rmlMapperJar,
-          "-m", rmlMapping,
+          "-m", patchedMapping.getAbsolutePath,
           "-o", outputFile.getAbsolutePath,
-          "-s", "trig",
-          "-i", file.getAbsolutePath
+          "-s", "trig"
         )
 
-        println(s"[INFO] [${Thread.currentThread().getName}] Running RMLMapper for ${file.getName}")
+        println(s"[INFO] [${Thread.currentThread().getName}] Running RMLMapper for ${fileName}")
         Try(cmd.!!) match {
           case Success(_) =>
-            println(s"[SUCCESS] ${file.getName} → ${outputFile.getName}")
+            println(s"[SUCCESS] ${fileName} → ${outputFile.getName}")
           case Failure(e) =>
-            println(s"[ERROR] Failed to process ${file.getName}")
+            println(s"[ERROR] Failed to process ${fileName}")
             e.printStackTrace()
         }
+
+        // patchedMapping.delete() // optional
       }
       Iterator.empty
     }.count()
 
-    println(s"[DONE] All files processed in parallel using RMLMapper.")
+    println(s"[DONE] All files processed in parallel using patched RML mappings.")
   }
 }

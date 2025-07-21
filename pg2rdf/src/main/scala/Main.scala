@@ -257,7 +257,7 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
         inputFolder = "output_xml",
         rmlMapping = "output_mappings_rml.ttl",
         rmlMapperJar = "../../rmlmapper.jar",
-        outputFolder = "output_trig_rml",
+        outputFolder = "output_trig",
         numPartitions = 2
       )
 

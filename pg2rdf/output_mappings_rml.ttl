@@ -5,113 +5,175 @@
       @prefix ex: <https://your-namespace/> .
       @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-    ex:Synapse:medulla7column_SynapseMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Synapse:medulla7column_Synapse" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/Synapse:medulla7column_Synapse/{id}" ; rr:class ex:Synapse:medulla7column_Synapse ] ;
+    ex:ForumMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Forum" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Forum/{id}" ; rr:class ex:Forum ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_title ; rr:objectMap [ rml:reference "title" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_creationDate ; rr:objectMap [ rml:reference "creationDate" ; ] ] ;
+.
+
+ex:TagMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Tag" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Tag/{id}" ; rr:class ex:Tag ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_name ; rr:objectMap [ rml:reference "name" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_url ; rr:objectMap [ rml:reference "url" ; ] ] ;
+.
+
+ex:OrganisationMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Organisation" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Organisation/{id}" ; rr:class ex:Organisation ] ;
   rr:predicateObjectMap [ rr:predicate ex:has_type ; rr:objectMap [ rml:reference "type" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_location ; rr:objectMap [ rml:reference "location" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_confidence ; rr:objectMap [ rml:reference "confidence" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_distal ; rr:objectMap [ rml:reference "distal" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_proximal ; rr:objectMap [ rml:reference "proximal" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_name ; rr:objectMap [ rml:reference "name" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_url ; rr:objectMap [ rml:reference "url" ; ] ] ;
 .
 
-ex:Segment:medulla7column_Segment:NeuronMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Segment:medulla7column_Segment:Neuron" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/Segment:medulla7column_Segment:Neuron/{id}" ; rr:class ex:Segment:medulla7column_Segment:Neuron ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_post ; rr:objectMap [ rml:reference "post" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_bodyId ; rr:objectMap [ rml:reference "bodyId" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_statusLabel ; rr:objectMap [ rml:reference "statusLabel" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_size ; rr:objectMap [ rml:reference "size" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_roiInfo ; rr:objectMap [ rml:reference "roiInfo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_status ; rr:objectMap [ rml:reference "status" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_pre ; rr:objectMap [ rml:reference "pre" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_cropped ; rr:objectMap [ rml:reference "cropped" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_type ; rr:objectMap [ rml:reference "type" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_distal ; rr:objectMap [ rml:reference "distal" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_instance ; rr:objectMap [ rml:reference "instance" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_proximal ; rr:objectMap [ rml:reference "proximal" ; ] ] ;
+ex:PostMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Post" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Post/{id}" ; rr:class ex:Post ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_browserUsed ; rr:objectMap [ rml:reference "browserUsed" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_locationIP ; rr:objectMap [ rml:reference "locationIP" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_length ; rr:objectMap [ rml:reference "length" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_creationDate ; rr:objectMap [ rml:reference "creationDate" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_imageFile ; rr:objectMap [ rml:reference "imageFile" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_content ; rr:objectMap [ rml:reference "content" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_language ; rr:objectMap [ rml:reference "language" ; ] ] ;
 .
 
-ex:Meta:medulla7column_MetaMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Meta:medulla7column_Meta" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/Meta:medulla7column_Meta/{id}" ; rr:class ex:Meta:medulla7column_Meta ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_postHighAccuracyThreshold ; rr:objectMap [ rml:reference "postHighAccuracyThreshold" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_totalPreCount ; rr:objectMap [ rml:reference "totalPreCount" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_latestMutationId ; rr:objectMap [ rml:reference "latestMutationId" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_preHPThreshold ; rr:objectMap [ rml:reference "preHPThreshold" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_primaryRois ; rr:objectMap [ rml:reference "primaryRois" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_neuroglancerInfo ; rr:objectMap [ rml:reference "neuroglancerInfo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_statusDefinitions ; rr:objectMap [ rml:reference "statusDefinitions" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_logo ; rr:objectMap [ rml:reference "logo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_totalPostCount ; rr:objectMap [ rml:reference "totalPostCount" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_roiHierarchy ; rr:objectMap [ rml:reference "roiHierarchy" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_postHPThreshold ; rr:objectMap [ rml:reference "postHPThreshold" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_dataset ; rr:objectMap [ rml:reference "dataset" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_roiInfo ; rr:objectMap [ rml:reference "roiInfo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_superLevelRois ; rr:objectMap [ rml:reference "superLevelRois" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_lastDatabaseEdit ; rr:objectMap [ rml:reference "lastDatabaseEdit" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_neuroglancerMeta ; rr:objectMap [ rml:reference "neuroglancerMeta" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_uuid ; rr:objectMap [ rml:reference "uuid" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_meshHost ; rr:objectMap [ rml:reference "meshHost" ; ] ] ;
+ex:PersonMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Person" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Person/{id}" ; rr:class ex:Person ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_browserUsed ; rr:objectMap [ rml:reference "browserUsed" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_lastName ; rr:objectMap [ rml:reference "lastName" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_firstName ; rr:objectMap [ rml:reference "firstName" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_gender ; rr:objectMap [ rml:reference "gender" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_locationIP ; rr:objectMap [ rml:reference "locationIP" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_creationDate ; rr:objectMap [ rml:reference "creationDate" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_birthday ; rr:objectMap [ rml:reference "birthday" ; ] ] ;
 .
 
-ex:Segment:medulla7column_Segment:NeuronMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Segment:medulla7column_Segment:Neuron" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/Segment:medulla7column_Segment:Neuron/{id}" ; rr:class ex:Segment:medulla7column_Segment:Neuron ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_post ; rr:objectMap [ rml:reference "post" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_bodyId ; rr:objectMap [ rml:reference "bodyId" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_size ; rr:objectMap [ rml:reference "size" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_roiInfo ; rr:objectMap [ rml:reference "roiInfo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_pre ; rr:objectMap [ rml:reference "pre" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_cropped ; rr:objectMap [ rml:reference "cropped" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_instance ; rr:objectMap [ rml:reference "instance" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_statusLabel ; rr:objectMap [ rml:reference "statusLabel" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_proximal ; rr:objectMap [ rml:reference "proximal" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_status ; rr:objectMap [ rml:reference "status" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_distal ; rr:objectMap [ rml:reference "distal" ; ] ] ;
+ex:CommentMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Comment" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/Comment/{id}" ; rr:class ex:Comment ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_browserUsed ; rr:objectMap [ rml:reference "browserUsed" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_content ; rr:objectMap [ rml:reference "content" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_id ; rr:objectMap [ rml:reference "id" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_locationIP ; rr:objectMap [ rml:reference "locationIP" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_length ; rr:objectMap [ rml:reference "length" ; ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:has_creationDate ; rr:objectMap [ rml:reference "creationDate" ; ] ] ;
 .
 
-ex:SynapseSet:medulla7column_SynapseSetMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//SynapseSet:medulla7column_SynapseSet" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/SynapseSet:medulla7column_SynapseSet/{id}" ; rr:class ex:SynapseSet:medulla7column_SynapseSet ] ;
+ex:REPLY_OFMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//REPLY_OF" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/REPLY_OF/{id}" ; rr:class ex:REPLY_OF ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Comment/{source/Comment}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Comment/{target/Comment}" ] ] ;
 .
 
-ex:Segment:medulla7column_Segment:Neuron:medulla7column_NeuronMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//Segment:medulla7column_Segment:Neuron:medulla7column_Neuron" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/Segment:medulla7column_Segment:Neuron:medulla7column_Neuron/{id}" ; rr:class ex:Segment:medulla7column_Segment:Neuron:medulla7column_Neuron ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_post ; rr:objectMap [ rml:reference "post" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_cropped ; rr:objectMap [ rml:reference "cropped" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_instance ; rr:objectMap [ rml:reference "instance" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_bodyId ; rr:objectMap [ rml:reference "bodyId" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_statusLabel ; rr:objectMap [ rml:reference "statusLabel" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_size ; rr:objectMap [ rml:reference "size" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_proximal ; rr:objectMap [ rml:reference "proximal" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_roiInfo ; rr:objectMap [ rml:reference "roiInfo" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_status ; rr:objectMap [ rml:reference "status" ; ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:has_pre ; rr:objectMap [ rml:reference "pre" ; ] ] ;
+ex:STUDIES_ATMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//STUDIES_AT" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/STUDIES_AT/{id}" ; rr:class ex:STUDIES_AT ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Organisation/{target/Organisation}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:STUDIES_AT_classYear ; rr:objectMap [ rml:reference "classYear" ] ] ;
 .
 
-ex:CONNECTS_TOMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//CONNECTS_TO" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/CONNECTS_TO/{id}" ; rr:class ex:CONNECTS_TO ] ;
-  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/SynapseSet:medulla7column_SynapseSet/{source/SynapseSet:medulla7column_SynapseSet}" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/SynapseSet:medulla7column_SynapseSet/{target/SynapseSet:medulla7column_SynapseSet}" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:CONNECTS_TO_weightHP ; rr:objectMap [ rml:reference "weightHP" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:CONNECTS_TO_weight ; rr:objectMap [ rml:reference "weight" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:CONNECTS_TO_roiInfo ; rr:objectMap [ rml:reference "roiInfo" ] ] ;
+ex:HAS_MODERATORMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_MODERATOR" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_MODERATOR/{id}" ; rr:class ex:HAS_MODERATOR ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Forum/{source/Forum}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Person/{target/Person}" ] ] ;
 .
 
-ex:CONTAINSMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//CONTAINS" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/CONTAINS/{id}" ; rr:class ex:CONTAINS ] ;
-  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/SynapseSet:medulla7column_SynapseSet/{source/SynapseSet:medulla7column_SynapseSet}" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/SynapseSet:medulla7column_SynapseSet/{target/SynapseSet:medulla7column_SynapseSet}" ] ] ;
+ex:WORKS_ATMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//WORKS_AT" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/WORKS_AT/{id}" ; rr:class ex:WORKS_AT ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Organisation/{target/Organisation}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:WORKS_AT_workFrom ; rr:objectMap [ rml:reference "workFrom" ] ] ;
 .
 
-ex:SYNAPSES_TOMapping a rr:TriplesMap ;
-  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//SYNAPSES_TO" ] ;
-  rr:subjectMap [ rr:template "https://your-namespace/SYNAPSES_TO/{id}" ; rr:class ex:SYNAPSES_TO ] ;
-  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Synapse:medulla7column_Synapse/{source/Synapse:medulla7column_Synapse}" ] ] ;
-  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Synapse:medulla7column_Synapse/{target/Synapse:medulla7column_Synapse}" ] ] ;
+ex:IS_SUBCLASS_OFMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//IS_SUBCLASS_OF" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/IS_SUBCLASS_OF/{id}" ; rr:class ex:IS_SUBCLASS_OF ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/TagClass/{source/TagClass}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/TagClass/{target/TagClass}" ] ] ;
+.
+
+ex:HAS_CREATORMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_CREATOR" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_CREATOR/{id}" ; rr:class ex:HAS_CREATOR ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Person/{target/Person}" ] ] ;
+.
+
+ex:CONTAINER_OFMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//CONTAINER_OF" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/CONTAINER_OF/{id}" ; rr:class ex:CONTAINER_OF ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Forum/{source/Forum}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Post/{target/Post}" ] ] ;
+.
+
+ex:IS_PART_OFMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//IS_PART_OF" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/IS_PART_OF/{id}" ; rr:class ex:IS_PART_OF ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Place/{source/Place}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Place/{target/Place}" ] ] ;
+.
+
+ex:LIKESMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//LIKES" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/LIKES/{id}" ; rr:class ex:LIKES ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Comment/{target/Comment}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:LIKES_creationDate ; rr:objectMap [ rml:reference "creationDate" ] ] ;
+.
+
+ex:HAS_INTERESTMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_INTEREST" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_INTEREST/{id}" ; rr:class ex:HAS_INTEREST ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Tag/{target/Tag}" ] ] ;
+.
+
+ex:IS_LOCATED_INMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//IS_LOCATED_IN" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/IS_LOCATED_IN/{id}" ; rr:class ex:IS_LOCATED_IN ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Comment/{source/Comment}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Place/{target/Place}" ] ] ;
+.
+
+ex:HAS_TYPEMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_TYPE" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_TYPE/{id}" ; rr:class ex:HAS_TYPE ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Tag/{source/Tag}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/TagClass/{target/TagClass}" ] ] ;
+.
+
+ex:KNOWSMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//KNOWS" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/KNOWS/{id}" ; rr:class ex:KNOWS ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Person/{source/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Person/{target/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:KNOWS_creationDate ; rr:objectMap [ rml:reference "creationDate" ] ] ;
+.
+
+ex:HAS_TAGMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_TAG" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_TAG/{id}" ; rr:class ex:HAS_TAG ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Forum/{source/Forum}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Tag/{target/Tag}" ] ] ;
+.
+
+ex:HAS_MEMBERMapping a rr:TriplesMap ;
+  rml:logicalSource [ rml:source "input.xml" ; rml:referenceFormulation ql:XPath ; rml:iterator "//HAS_MEMBER" ] ;
+  rr:subjectMap [ rr:template "https://your-namespace/HAS_MEMBER/{id}" ; rr:class ex:HAS_MEMBER ] ;
+  rr:predicateObjectMap [ rr:predicate ex:source ; rr:objectMap [ rr:template "https://your-namespace/Forum/{source/Forum}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:target ; rr:objectMap [ rr:template "https://your-namespace/Person/{target/Person}" ] ] ;
+  rr:predicateObjectMap [ rr:predicate ex:HAS_MEMBER_joinDate ; rr:objectMap [ rml:reference "joinDate" ] ] ;
 .
 
