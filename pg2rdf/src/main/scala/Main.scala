@@ -248,7 +248,7 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
         x3mlMapping = "output_mappings.x3ml",
         policyFile = "generator-policies.xml",
         x3mlEngineJar = "../../x3ml-engine.jar",
-        outputFolder = "output_trig",
+        outputFolder = "output_trig_x3ml",
         numPartitions = 2
       )
 
@@ -257,7 +257,7 @@ def alignSchemas(df1: DataFrame, df2: DataFrame): (DataFrame, DataFrame) = {
         inputFolder = "output_xml",
         rmlMapping = "output_mappings_rml.ttl",
         rmlMapperJar = "../../rmlmapper.jar",
-        outputFolder = "output_trig",
+        outputFolder = "output_trig_rml",
         numPartitions = 2
       )
 
